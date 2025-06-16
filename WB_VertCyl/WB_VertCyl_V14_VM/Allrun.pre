@@ -1,0 +1,30 @@
+#!/bin/sh
+cd "${0%/*}" || exit                                # Run from this directory
+. ${WM_PROJECT_DIR:?}/bin/tools/RunFunctions        # Tutorial run functions
+#------------------------------------------------------------------------------
+
+./Allclean
+
+touch case.foam
+
+runApplication blockMesh
+
+for i in 1 2 3
+do
+    runApplication -s $i \
+         topoSet -dict system/topoSetDict.${i}
+    runApplication -s $i \
+         refineMesh -dict system/refineMeshDict -overwrite
+done
+
+restore0Dir
+
+runApplication setFields
+
+runApplication decomposePar
+
+# runParallel $(getApplication)
+
+# runApplication reconstructPar
+
+#------------------------------------------------------------------------------

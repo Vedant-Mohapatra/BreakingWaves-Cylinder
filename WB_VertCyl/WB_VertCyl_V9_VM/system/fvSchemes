@@ -1,0 +1,69 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSchemes;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+ddtSchemes
+{
+    default		Euler;
+    limitedGrad     cellLimited Gauss linear 1;
+}
+// {
+//    default CrankNicolson ocCoeff
+//    {
+//        type scale;
+//        scale linearRamp;
+//        duration 1.0;
+//        value 0.9;
+//    };
+// }
+
+gradSchemes
+{
+    default         Gauss linear; //cellMDLimited Gauss linear 1;//
+}
+
+divSchemes
+{
+    div(rhoPhi,U)                           Gauss linearUpwindV grad(U);    //Gauss limitedLinearV 1;
+    div(phi,alpha)                          Gauss vanLeer //Gauss interfaceCompression vanLeer 1;
+    div(phirb,alpha)                        Gauss linear;
+    div(rhoPhi,k)                           Gauss upwind;
+    div(rhoPhi,epsilon)                     Gauss upwind;
+    div(((rho*nuEff)*dev2(T(grad(U)))))     Gauss linear;
+    div(phi,k)                              Gauss upwind;
+    div(phi,epsilon)                        Gauss upwind;
+    div((muEff*dev(T(grad(U)))))            Gauss linear;
+    div(phirb,alpha)                          Gauss linear;
+    
+}
+
+laplacianSchemes
+{
+    default         Gauss linear corrected;  
+}
+
+interpolationSchemes
+{
+    default         linear;
+}
+
+snGradSchemes
+{
+    default         corrected;
+}
+
+
+// ************************************************************************* //

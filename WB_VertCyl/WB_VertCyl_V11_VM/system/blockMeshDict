@@ -1,0 +1,771 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2306                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+scale 1;
+
+X_LIM    25.00;
+X_Enc    23.00;
+Orig      0.00;
+Y_SID     2.50; 
+Z_MIN    -3.80;
+Z_Enc    -1.50;
+Z_WB     -0.9;
+Z_WT      0.9; 
+Z_MAX     2.30;
+R0        0.35;
+R1        0.75;
+A0      #eval{1.0/sqrt(2)*$R0};
+A1      #eval{1.0/sqrt(2)*$R1};
+A2      #eval{($R1+$A1)/2};
+Sl      #eval{($Z_Enc-$Z_MIN)/($X_Enc)};
+ZR0     #eval{($X_Enc-$R0)*($Sl)+$Z_MIN};
+ZA0     #eval{($X_Enc-$A0)*($Sl)+$Z_MIN};
+ZA1     #eval{($X_Enc-$A1)*($Sl)+$Z_MIN};
+ZA2     #eval{($X_Enc-$A2)*($Sl)+$Z_MIN};
+
+nxf         20;
+nx_Enc     230;
+nxb        100;
+ny          20;
+ntheta       5;
+nr           5;
+
+nzb         8;
+nzw         23;
+nzt         18;
+sr          -2;
+
+pxb1      0.30;
+pxb2      0.70;
+pnxb1     0.70;
+pnxb2     0.30;
+sxb         12;
+szf        -12;
+
+vertices
+(
+    name v0   (-$X_LIM  $Y_SID  $Z_MIN)
+    name v1   (-$X_LIM  $A1     $Z_MIN)
+    name v2   (-$X_LIM  $Orig   $Z_MIN)
+    name v3   (-$X_LIM -$A1     $Z_MIN)
+    name v4   (-$X_LIM -$Y_SID  $Z_MIN)
+    
+    name v5   (-$X_Enc  $Y_SID  $Z_MIN)
+    name v6   (-$X_Enc  $A1     $Z_MIN)
+    name v7   (-$X_Enc  $Orig   $Z_MIN)
+    name v8   (-$X_Enc -$A1     $Z_MIN)
+    name v9   (-$X_Enc -$Y_SID  $Z_MIN)
+    
+    name v10  (-$A1     $Y_SID  $ZA1  )
+    name v11  (-$A1     $A1     $ZA1  )
+    name v12  (-$A2     $Orig   $ZA2  )
+    name v13  (-$A1    -$A1     $ZA1  )
+    name v14  (-$A1    -$Y_SID  $ZA1  )
+    
+    name v15  (-$A0     $A0     $ZA0  )
+    name v16  (-$R0     $Orig   $ZR0  )
+    name v17  (-$A0    -$A0     $ZA0  )
+    
+    name v18  ( $Orig   $Y_SID  $Z_Enc)
+    name v19  ( $Orig   $A2     $Z_Enc)
+    name v20  ( $Orig   $R0     $Z_Enc)
+    name v21  ( $Orig  -$R0     $Z_Enc)
+    name v22  ( $Orig  -$A2     $Z_Enc)
+    name v23  ( $Orig  -$Y_SID  $Z_Enc)
+    
+    name v24  ( $A0     $A0     $Z_Enc)
+    name v25  ( $R0     $Orig   $Z_Enc)
+    name v26  ( $A0    -$A0     $Z_Enc)
+    
+    name v27  ( $A1     $Y_SID  $Z_Enc)
+    name v28  ( $A1     $A1     $Z_Enc)
+    name v29  ( $A2     $Orig   $Z_Enc)
+    name v30  ( $A1    -$A1     $Z_Enc)
+    name v31  ( $A1    -$Y_SID  $Z_Enc)
+    
+    name v32  ( $X_LIM  $Y_SID  $Z_Enc)
+    name v33  ( $X_LIM  $A1     $Z_Enc)
+    name v34  ( $X_LIM  $Orig   $Z_Enc)
+    name v35  ( $X_LIM -$A1     $Z_Enc)
+    name v36  ( $X_LIM -$Y_SID  $Z_Enc)
+    
+// // // // // // // // // // // // // //
+
+    name v37  (-$X_LIM  $Y_SID  $Z_WB )
+    name v38  (-$X_LIM  $A1     $Z_WB )
+    name v39  (-$X_LIM  $Orig   $Z_WB )
+    name v40  (-$X_LIM -$A1     $Z_WB )
+    name v41  (-$X_LIM -$Y_SID  $Z_WB )
+    
+    name v42  (-$X_Enc  $Y_SID  $Z_WB )
+    name v43  (-$X_Enc  $A1     $Z_WB )
+    name v44  (-$X_Enc  $Orig   $Z_WB )
+    name v45  (-$X_Enc -$A1     $Z_WB )
+    name v46  (-$X_Enc -$Y_SID  $Z_WB )
+    
+    name v47  (-$A1     $Y_SID  $Z_WB )
+    name v48  (-$A1     $A1     $Z_WB )
+    name v49  (-$A2     $Orig   $Z_WB )
+    name v50  (-$A1    -$A1     $Z_WB )
+    name v51  (-$A1    -$Y_SID  $Z_WB )
+    
+    name v52  (-$A0     $A0     $Z_WB )
+    name v53  (-$R0     $Orig   $Z_WB )
+    name v54  (-$A0    -$A0     $Z_WB )
+    
+    name v55  ( $Orig   $Y_SID  $Z_WB )
+    name v56  ( $Orig   $A2     $Z_WB )
+    name v57  ( $Orig   $R0     $Z_WB )
+    name v58  ( $Orig  -$R0     $Z_WB )
+    name v59  ( $Orig  -$A2     $Z_WB )
+    name v60  ( $Orig  -$Y_SID  $Z_WB )
+    
+    name v61  ( $A0     $A0     $Z_WB )
+    name v62  ( $R0     $Orig   $Z_WB )
+    name v63  ( $A0    -$A0     $Z_WB )
+    
+    name v64  ( $A1     $Y_SID  $Z_WB )
+    name v65  ( $A1     $A1     $Z_WB )
+    name v66  ( $A2     $Orig   $Z_WB )
+    name v67  ( $A1    -$A1     $Z_WB )
+    name v68  ( $A1    -$Y_SID  $Z_WB )
+    
+    name v69  ( $X_LIM  $Y_SID  $Z_WB )
+    name v70  ( $X_LIM  $A1     $Z_WB )
+    name v71  ( $X_LIM  $Orig   $Z_WB )
+    name v72  ( $X_LIM -$A1     $Z_WB )
+    name v73  ( $X_LIM -$Y_SID  $Z_WB )
+    
+// // // // // // // // // // // // // //
+
+    name v74  (-$X_LIM  $Y_SID  $Z_WT )
+    name v75  (-$X_LIM  $A1     $Z_WT )
+    name v76  (-$X_LIM  $Orig   $Z_WT )
+    name v77  (-$X_LIM -$A1     $Z_WT )
+    name v78  (-$X_LIM -$Y_SID  $Z_WT )
+    
+    name v79  (-$X_Enc  $Y_SID  $Z_WT )
+    name v80  (-$X_Enc  $A1     $Z_WT )
+    name v81  (-$X_Enc  $Orig   $Z_WT )
+    name v82  (-$X_Enc -$A1     $Z_WT )
+    name v83  (-$X_Enc -$Y_SID  $Z_WT )
+    
+    name v84  (-$A1     $Y_SID  $Z_WT )
+    name v85  (-$A1     $A1     $Z_WT )
+    name v86  (-$A2     $Orig   $Z_WT )
+    name v87  (-$A1    -$A1     $Z_WT )
+    name v88  (-$A1    -$Y_SID  $Z_WT )
+    
+    name v89  (-$A0     $A0     $Z_WT )
+    name v90  (-$R0     $Orig   $Z_WT )
+    name v91  (-$A0    -$A0     $Z_WT )
+    
+    name v92  ( $Orig   $Y_SID  $Z_WT )
+    name v93  ( $Orig   $A2     $Z_WT )
+    name v94  ( $Orig   $R0     $Z_WT )
+    name v95  ( $Orig  -$R0     $Z_WT )
+    name v96  ( $Orig  -$A2     $Z_WT )
+    name v97  ( $Orig  -$Y_SID  $Z_WT )
+    
+    name v98  ( $A0     $A0     $Z_WT )
+    name v99  ( $R0     $Orig   $Z_WT )
+    name v100 ( $A0    -$A0     $Z_WT )
+    
+    name v101 ( $A1     $Y_SID  $Z_WT )
+    name v102 ( $A1     $A1     $Z_WT )
+    name v103 ( $A2     $Orig   $Z_WT )
+    name v104 ( $A1    -$A1     $Z_WT )
+    name v105 ( $A1    -$Y_SID  $Z_WT )
+    
+    name v106 ( $X_LIM  $Y_SID  $Z_WT )
+    name v107 ( $X_LIM  $A1     $Z_WT )
+    name v108 ( $X_LIM  $Orig   $Z_WT )
+    name v109 ( $X_LIM -$A1     $Z_WT )
+    name v110 ( $X_LIM -$Y_SID  $Z_WT )
+    
+// // // // // // // // // // // // // //
+
+    name v111 (-$X_LIM  $Y_SID  $Z_MAX)
+    name v112 (-$X_LIM  $A1     $Z_MAX)
+    name v113 (-$X_LIM  $Orig   $Z_MAX)
+    name v114 (-$X_LIM -$A1     $Z_MAX)
+    name v115 (-$X_LIM -$Y_SID  $Z_MAX)
+    
+    name v116 (-$X_Enc  $Y_SID  $Z_MAX)
+    name v117 (-$X_Enc  $A1     $Z_MAX)
+    name v118 (-$X_Enc  $Orig   $Z_MAX)
+    name v119 (-$X_Enc -$A1     $Z_MAX)
+    name v120 (-$X_Enc -$Y_SID  $Z_MAX)
+    
+    name v121 (-$A1     $Y_SID  $Z_MAX)
+    name v122 (-$A1     $A1     $Z_MAX)
+    name v123 (-$A2     $Orig   $Z_MAX)
+    name v124 (-$A1    -$A1     $Z_MAX)
+    name v125 (-$A1    -$Y_SID  $Z_MAX)
+    
+    name v126 (-$A0     $A0     $Z_MAX)
+    name v127 (-$R0     $Orig   $Z_MAX)
+    name v128 (-$A0    -$A0     $Z_MAX)
+    
+    name v129 ( $Orig   $Y_SID  $Z_MAX)
+    name v130 ( $Orig   $A2     $Z_MAX)
+    name v131 ( $Orig   $R0     $Z_MAX)
+    name v132 ( $Orig  -$R0     $Z_MAX)
+    name v133 ( $Orig  -$A2     $Z_MAX)
+    name v134 ( $Orig  -$Y_SID  $Z_MAX)
+    
+    name v135 ( $A0     $A0     $Z_MAX)
+    name v136 ( $R0     $Orig   $Z_MAX)
+    name v137 ( $A0    -$A0     $Z_MAX)
+    
+    name v138 ( $A1     $Y_SID  $Z_MAX)
+    name v139 ( $A1     $A1     $Z_MAX)
+    name v140 ( $A2     $Orig   $Z_MAX)
+    name v141 ( $A1    -$A1     $Z_MAX)
+    name v142 ( $A1    -$Y_SID  $Z_MAX)
+    
+    name v143 ( $X_LIM  $Y_SID  $Z_MAX)
+    name v144 ( $X_LIM  $A1     $Z_MAX)
+    name v145 ( $X_LIM  $Orig   $Z_MAX)
+    name v146 ( $X_LIM -$A1     $Z_MAX)
+    name v147 ( $X_LIM -$Y_SID  $Z_MAX)
+);
+
+blocks
+(
+    hex (v1   v6   v5   v0   v38  v43  v42  v37 ) ($nxf     $ny      $nzb ) simpleGrading (1 1 $szf) //B0
+    hex (v2   v7   v6   v1   v39  v44  v43  v38 ) ($nxf     $ntheta  $nzb ) simpleGrading (1 1 $szf) //B1
+    hex (v3   v8   v7   v2   v40  v45  v44  v39 ) ($nxf     $ntheta  $nzb ) simpleGrading (1 1 $szf) //B2
+    hex (v4   v9   v8   v3   v41  v46  v45  v40 ) ($nxf     $ny      $nzb ) simpleGrading (1 1 $szf) //B3
+
+    hex (v6   v11  v10  v5   v43  v48  v47  v42 ) ($nx_Enc  $ny      $nzb ) edgeGrading (1 1 1 1 1 1 1 1 $szf 1 1 $szf) //B4
+    hex (v7   v12  v11  v6   v44  v49  v48  v43 ) ($nx_Enc  $ntheta  $nzb ) edgeGrading (1 1 1 1 1 1 1 1 $szf 1 1 $szf) //B5
+    hex (v8   v13  v12  v7   v45  v50  v49  v44 ) ($nx_Enc  $ntheta  $nzb ) edgeGrading (1 1 1 1 1 1 1 1 $szf 1 1 $szf) //B6
+    hex (v9   v14  v13  v8   v46  v51  v50  v45 ) ($nx_Enc  $ny      $nzb ) edgeGrading (1 1 1 1 1 1 1 1 $szf 1 1 $szf) //B7
+
+    hex (v11  v19  v18  v10  v48  v56  v55  v47 ) ($ntheta  $ny      $nzb ) simpleGrading (1 1 1) //B8
+    hex (v14  v23  v22  v13  v51  v60  v59  v50 ) ($ntheta  $ny      $nzb ) simpleGrading (1 1 1) //B9
+    hex (v19  v28  v27  v18  v56  v65  v64  v55 ) ($ntheta  $ny      $nzb ) simpleGrading (1 1 1) //B10
+    hex (v23  v31  v30  v22  v60  v68  v67  v59 ) ($ntheta  $ny      $nzb ) simpleGrading (1 1 1) //B11
+
+    hex (v28  v33  v32  v27  v65  v70  v69  v64 ) ($nxb     $ny      $nzb ) simpleGrading 
+    (
+        (
+            ($pxb1  $pnxb1    1    )
+            ($pxb2  $pnxb2    $sxb )
+        )
+        (
+            (100  100  1   )
+        )
+        (
+            (100  100  1   )
+        )
+    ) //B12
+    hex (v29  v34  v33  v28  v66  v71  v70  v65 ) ($nxb     $ntheta  $nzb ) simpleGrading 
+    (
+        (
+            ($pxb1  $pnxb1    1    )
+            ($pxb2  $pnxb2    $sxb )
+        )
+        (
+            (100  100  1   )
+        )
+        (
+            (100  100  1   )
+        )
+    ) //B13
+    hex (v30  v35  v34  v29  v67  v72  v71  v66 ) ($nxb     $ntheta  $nzb ) simpleGrading 
+    (
+        (
+            ($pxb1  $pnxb1    1    )
+            ($pxb2  $pnxb2    $sxb )
+        )
+        (
+            (100  100  1   )
+        )
+        (
+            (100  100  1   )
+        )
+    ) //B14
+    hex (v31  v36  v35  v30  v68  v73  v72  v67 ) ($nxb     $ny      $nzb ) simpleGrading 
+    (
+        (
+            ($pxb1  $pnxb1    1    )
+            ($pxb2  $pnxb2    $sxb )
+        )
+        (
+            (100  100  1   )
+        )
+        (
+            (100  100  1   )
+        )
+    ) //B15
+
+    hex (v11  v12  v16  v15  v48  v49  v53  v52 ) ($ntheta  $nr      $nzb ) simpleGrading (1 $sr 1) //B16
+    hex (v12  v13  v17  v16  v49  v50  v54  v53 ) ($ntheta  $nr      $nzb ) simpleGrading (1 $sr 1) //B17
+    hex (v13  v22  v21  v17  v50  v59  v58  v54 ) ($ntheta  $nr      $nzb ) simpleGrading (1 $sr 1) //B18
+    hex (v22  v30  v26  v21  v59  v67  v63  v58 ) ($ntheta  $nr      $nzb ) simpleGrading (1 $sr 1) //B19
+    hex (v30  v29  v25  v26  v67  v66  v62  v63 ) ($ntheta  $nr      $nzb ) simpleGrading (1 $sr 1) //B20
+    hex (v29  v28  v24  v25  v66  v65  v61  v62 ) ($ntheta  $nr      $nzb ) simpleGrading (1 $sr 1) //B21
+    hex (v28  v19  v20  v24  v65  v56  v57  v61 ) ($ntheta  $nr      $nzb ) simpleGrading (1 $sr 1) //B22
+    hex (v19  v11  v15  v20  v56  v48  v52  v57 ) ($ntheta  $nr      $nzb ) simpleGrading (1 $sr 1) //B23
+    
+    // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // 
+
+    hex (v38  v43  v42  v37  v75  v80  v79  v74 ) ($nxf     $ny      $nzw ) simpleGrading (1 1 1) //B24
+    hex (v39  v44  v43  v38  v76  v81  v80  v75 ) ($nxf     $ntheta  $nzw ) simpleGrading (1 1 1) //B25
+    hex (v40  v45  v44  v39  v77  v82  v81  v76 ) ($nxf     $ntheta  $nzw ) simpleGrading (1 1 1) //B26
+    hex (v41  v46  v45  v40  v78  v83  v82  v77 ) ($nxf     $ny      $nzw ) simpleGrading (1 1 1) //B27
+
+    hex (v43  v48  v47  v42  v80  v85  v84  v79 ) ($nx_Enc  $ny      $nzw ) simpleGrading (1 1 1) //B28
+    hex (v44  v49  v48  v43  v81  v86  v85  v80 ) ($nx_Enc  $ntheta  $nzw ) simpleGrading (1 1 1) //B29
+    hex (v45  v50  v49  v44  v82  v87  v86  v81 ) ($nx_Enc  $ntheta  $nzw ) simpleGrading (1 1 1) //B30
+    hex (v46  v51  v50  v45  v83  v88  v87  v82 ) ($nx_Enc  $ny      $nzw ) simpleGrading (1 1 1) //B31
+
+    hex (v48  v56  v55  v47  v85  v93  v92  v84 ) ($ntheta  $ny      $nzw ) simpleGrading (1 1 1) //B32
+    hex (v51  v60  v59  v50  v88  v97  v96  v87 ) ($ntheta  $ny      $nzw ) simpleGrading (1 1 1) //B33
+    hex (v56  v65  v64  v55  v93  v102 v101 v92 ) ($ntheta  $ny      $nzw ) simpleGrading (1 1 1) //B34
+    hex (v60  v68  v67  v59  v97  v105 v104 v96 ) ($ntheta  $ny      $nzw ) simpleGrading (1 1 1) //B35
+
+    hex (v65  v70  v69  v64  v102 v107 v106 v101) ($nxb     $ny      $nzw ) simpleGrading 
+    (
+        (
+            ($pxb1  $pnxb1    1    )
+            ($pxb2  $pnxb2    $sxb )
+        )
+        (
+            (100  100  1   )
+        )
+        (
+            (100  100  1   )
+        )
+    )//B36
+    hex (v66  v71  v70  v65  v103 v108 v107 v102) ($nxb     $ntheta  $nzw ) simpleGrading 
+    (
+        (
+            ($pxb1  $pnxb1    1    )
+            ($pxb2  $pnxb2    $sxb )
+        )
+        (
+            (100  100  1   )
+        )
+        (
+            (100  100  1   )
+        )
+    ) //B37
+    hex (v67  v72  v71  v66  v104 v109 v108 v103) ($nxb     $ntheta  $nzw ) simpleGrading 
+    (
+        (
+            ($pxb1  $pnxb1    1    )
+            ($pxb2  $pnxb2    $sxb )
+        )
+        (
+            (100  100  1   )
+        )
+        (
+            (100  100  1   )
+        )
+    ) //B38
+    hex (v68  v73  v72  v67  v105 v110 v109 v104) ($nxb     $ny      $nzw ) simpleGrading 
+    (
+        (
+            ($pxb1  $pnxb1    1    )
+            ($pxb2  $pnxb2    $sxb )
+        )
+        (
+            (100  100  1   )
+        )
+        (
+            (100  100  1   )
+        )
+    ) //B39
+
+    hex (v48  v49  v53  v52  v85  v86  v90  v89 ) ($ntheta  $nr      $nzw ) simpleGrading (1 $sr 1) //B40
+    hex (v49  v50  v54  v53  v86  v87  v91  v90 ) ($ntheta  $nr      $nzw ) simpleGrading (1 $sr 1) //B41
+    hex (v50  v59  v58  v54  v87  v96  v95  v91 ) ($ntheta  $nr      $nzw ) simpleGrading (1 $sr 1) //B42
+    hex (v59  v67  v63  v58  v96  v104 v100 v95 ) ($ntheta  $nr      $nzw ) simpleGrading (1 $sr 1) //B43
+    hex (v67  v66  v62  v63  v104 v103 v99  v100) ($ntheta  $nr      $nzw ) simpleGrading (1 $sr 1) //B44
+    hex (v66  v65  v61  v62  v103 v102 v98  v99 ) ($ntheta  $nr      $nzw ) simpleGrading (1 $sr 1) //B45
+    hex (v65  v56  v57  v61  v102 v93  v94  v98 ) ($ntheta  $nr      $nzw ) simpleGrading (1 $sr 1) //B46
+    hex (v56  v48  v52  v57  v93  v85  v89  v94 ) ($ntheta  $nr      $nzw ) simpleGrading (1 $sr 1) //B47
+    
+    // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // 
+
+    hex (v75  v80  v79  v74  v112 v117 v116 v111) ($nxf     $ny      $nzt ) simpleGrading (1 1 1) //B48
+    hex (v76  v81  v80  v75  v113 v118 v117 v112) ($nxf     $ntheta  $nzt ) simpleGrading (1 1 1) //B49
+    hex (v77  v82  v81  v76  v114 v119 v118 v113) ($nxf     $ntheta  $nzt ) simpleGrading (1 1 1) //B50
+    hex (v78  v83  v82  v77  v115 v120 v119 v114) ($nxf     $ny      $nzt ) simpleGrading (1 1 1) //B51
+
+    hex (v80  v85  v84  v79  v117 v122 v121 v116) ($nx_Enc  $ny      $nzt ) simpleGrading (1 1 1) //B52
+    hex (v81  v86  v85  v80  v118 v123 v122 v117) ($nx_Enc  $ntheta  $nzt ) simpleGrading (1 1 1) //B53
+    hex (v82  v87  v86  v81  v119 v124 v123 v118) ($nx_Enc  $ntheta  $nzt ) simpleGrading (1 1 1) //B54
+    hex (v83  v88  v87  v82  v120 v125 v124 v119) ($nx_Enc  $ny      $nzt ) simpleGrading (1 1 1) //B55
+
+    hex (v85  v93  v92  v84  v122 v130 v129 v121) ($ntheta  $ny      $nzt ) simpleGrading (1 1 1) //B56
+    hex (v88  v97  v96  v87  v125 v134 v133 v124) ($ntheta  $ny      $nzt ) simpleGrading (1 1 1) //B57
+    hex (v93  v102 v101 v92  v130 v139 v138 v129) ($ntheta  $ny      $nzt ) simpleGrading (1 1 1) //B58
+    hex (v97  v105 v104 v96  v134 v142 v141 v133) ($ntheta  $ny      $nzt ) simpleGrading (1 1 1) //B59
+
+    hex (v102 v107 v106 v101 v139 v144 v143 v138) ($nxb     $ny      $nzt ) simpleGrading 
+    (
+        (
+            ($pxb1  $pnxb1    1    )
+            ($pxb2  $pnxb2    $sxb )
+        )
+        (
+            (100  100  1   )
+        )
+        (
+            (100  100  1   )
+        )
+    ) //B60
+    hex (v103 v108 v107 v102 v140 v145 v144 v139) ($nxb     $ntheta  $nzt ) simpleGrading 
+    (
+        (
+            ($pxb1  $pnxb1    1    )
+            ($pxb2  $pnxb2    $sxb )
+        )
+        (
+            (100  100  1   )
+        )
+        (
+            (100  100  1   )
+        )
+    ) //B61
+    hex (v104 v109 v108 v103 v141 v146 v145 v140) ($nxb     $ntheta  $nzt ) simpleGrading 
+    (
+        (
+            ($pxb1  $pnxb1    1    )
+            ($pxb2  $pnxb2    $sxb )
+        )
+        (
+            (100  100  1   )
+        )
+        (
+            (100  100  1   )
+        )
+    ) //B62
+    hex (v105 v110 v109 v104 v142 v147 v146 v141) ($nxb     $ny      $nzt ) simpleGrading 
+    (
+        (
+            ($pxb1  $pnxb1    1    )
+            ($pxb2  $pnxb2    $sxb )
+        )
+        (
+            (100  100  1   )
+        )
+        (
+            (100  100  1   )
+        )
+    ) //B63
+
+    hex (v85  v86  v90  v89  v122 v123 v127 v126) ($ntheta  $nr      $nzt ) simpleGrading (1 $sr 1) //B64
+    hex (v86  v87  v91  v90  v123 v124 v128 v127) ($ntheta  $nr      $nzt ) simpleGrading (1 $sr 1) //B65
+    hex (v87  v96  v95  v91  v124 v133 v132 v128) ($ntheta  $nr      $nzt ) simpleGrading (1 $sr 1) //B66
+    hex (v96  v104 v100 v95  v133 v141 v137 v132) ($ntheta  $nr      $nzt ) simpleGrading (1 $sr 1) //B67
+    hex (v104 v103 v99  v100 v141 v140 v136 v137) ($ntheta  $nr      $nzt ) simpleGrading (1 $sr 1) //B68
+    hex (v103 v102 v98  v99  v140 v139 v135 v136) ($ntheta  $nr      $nzt ) simpleGrading (1 $sr 1) //B69
+    hex (v102 v93  v94  v98  v139 v130 v131 v135) ($ntheta  $nr      $nzt ) simpleGrading (1 $sr 1) //B70
+    hex (v93  v85  v89  v94  v130 v122 v126 v131) ($ntheta  $nr      $nzt ) simpleGrading (1 $sr 1) //B71
+);
+
+edges
+(
+    arc  v15  v16  origin (0 0 $ZR0  )
+    arc  v16  v17  origin (0 0 $ZR0  )
+    arc  v17  v21  origin (0 0 $Z_Enc)
+    arc  v21  v26  origin (0 0 $Z_Enc)
+    arc  v26  v25  origin (0 0 $Z_Enc)
+    arc  v25  v24  origin (0 0 $Z_Enc)
+    arc  v24  v20  origin (0 0 $Z_Enc)
+    arc  v20  v15  origin (0 0 $Z_Enc)
+    
+    arc  v52  v53  origin (0 0 $Z_WB )
+    arc  v53  v54  origin (0 0 $Z_WB )
+    arc  v54  v58  origin (0 0 $Z_WB )
+    arc  v58  v63  origin (0 0 $Z_WB )
+    arc  v63  v62  origin (0 0 $Z_WB )
+    arc  v62  v61  origin (0 0 $Z_WB )
+    arc  v61  v57  origin (0 0 $Z_WB )
+    arc  v57  v52  origin (0 0 $Z_WB )
+    
+    arc  v89  v90  origin (0 0 $Z_WT )
+    arc  v90  v91  origin (0 0 $Z_WT )
+    arc  v91  v95  origin (0 0 $Z_WT )
+    arc  v95  v100 origin (0 0 $Z_WT )
+    arc  v100 v99  origin (0 0 $Z_WT )
+    arc  v99  v98  origin (0 0 $Z_WT )
+    arc  v98  v94  origin (0 0 $Z_WT )
+    arc  v94  v89  origin (0 0 $Z_WT )
+    
+    arc  v126 v127 origin (0 0 $Z_MAX)
+    arc  v127 v128 origin (0 0 $Z_MAX)
+    arc  v128 v132 origin (0 0 $Z_MAX)
+    arc  v132 v137 origin (0 0 $Z_MAX)
+    arc  v137 v136 origin (0 0 $Z_MAX)
+    arc  v136 v135 origin (0 0 $Z_MAX)
+    arc  v135 v131 origin (0 0 $Z_MAX)
+    arc  v131 v126 origin (0 0 $Z_MAX)
+    
+    arc  v11  v12  (-$A1    -$A1     $ZA1  )
+    arc  v48  v49  (-$A1    -$A1     $Z_WB )
+    arc  v85  v86  (-$A1    -$A1     $Z_WT )
+    arc  v122 v123 (-$A1    -$A1     $Z_MAX)
+    
+    arc  v13  v12  (-$A1     $A1     $ZA1  )
+    arc  v50  v49  (-$A1     $A1     $Z_WB )
+    arc  v87  v86  (-$A1     $A1     $Z_WT )
+    arc  v124 v123 (-$A1     $A1     $Z_MAX)
+    
+    arc  v13  v22  ( $A1    -$A1     $ZA1  )
+    arc  v50  v59  ( $A1    -$A1     $Z_WB )
+    arc  v87  v96  ( $A1    -$A1     $Z_WT )
+    arc  v124 v133 ( $A1    -$A1     $Z_MAX)
+    
+    arc  v30  v22  (-$A1    -$A1     $ZA1  )
+    arc  v67  v59  (-$A1    -$A1     $Z_WB )
+    arc  v104 v96  (-$A1    -$A1     $Z_WT )
+    arc  v141 v133 (-$A1    -$A1     $Z_MAX)
+    
+    arc  v30  v29  ( $A1     $A1     $ZA1  )
+    arc  v67  v66  ( $A1     $A1     $Z_WB )
+    arc  v104 v103 ( $A1     $A1     $Z_WT )
+    arc  v141 v140 ( $A1     $A1     $Z_MAX)
+    
+    arc  v28  v29  ( $A1    -$A1     $ZA1  )
+    arc  v65  v66  ( $A1    -$A1     $Z_WB )
+    arc  v102 v103 ( $A1    -$A1     $Z_WT )
+    arc  v139 v140 ( $A1    -$A1     $Z_MAX)
+    
+    arc  v28  v19  (-$A1     $A1     $ZA1  )
+    arc  v65  v56  (-$A1     $A1     $Z_WB )
+    arc  v102 v93  (-$A1     $A1     $Z_WT )
+    arc  v139 v130 (-$A1     $A1     $Z_MAX)
+    
+    arc  v11  v19  ( $A1     $A1     $ZA1  )
+    arc  v48  v56  ( $A1     $A1     $Z_WB )
+    arc  v85  v93  ( $A1     $A1     $Z_WT )
+    arc  v122 v130 ( $A1     $A1     $Z_MAX)
+);
+
+defaultPatch
+{
+    name frontAndBack;
+    type empty;
+}
+
+boundary
+(
+    inlet
+    {
+        type patch;
+        faces
+        (
+            (v0   v1   v38  v37 )
+            (v1   v2   v39  v38 )
+            (v2   v3   v40  v39 )
+            (v3   v4   v41  v40 )
+            
+            (v37  v38  v75  v74 )
+            (v38  v39  v76  v75 )
+            (v39  v40  v77  v76 )
+            (v40  v41  v78  v77 )
+            
+            (v74  v75  v112 v111)
+            (v75  v76  v113 v112)
+            (v76  v77  v114 v113)
+            (v77  v78  v115 v114)
+        );
+    }
+    outlet
+    {
+        type patch;
+        faces
+        (
+            (v32  v33  v70  v69 )
+            (v33  v34  v71  v70 )
+            (v34  v35  v72  v71 )
+            (v35  v36  v73  v72 )
+            
+            (v69  v70  v107 v106)
+            (v70  v71  v108 v107)
+            (v71  v72  v109 v108)
+            (v72  v73  v110 v109)
+            
+            (v106 v107 v144 v143)
+            (v107 v108 v145 v144)
+            (v108 v109 v146 v145)
+            (v109 v110 v147 v146)
+        );
+    }
+    bottom
+    {
+        type wall;
+        faces
+        (
+            (v0   v1   v6   v5  )
+            (v1   v2   v7   v6  )
+            (v2   v3   v8   v7  )
+            (v3   v4   v9   v8  )
+            
+            (v5   v6   v11  v10 )
+            (v6   v7   v12  v11 )
+            (v7   v8   v13  v12 )
+            (v8   v9   v14  v13 )
+            
+            (v10  v11  v19  v18 )
+            (v13  v14  v23  v22 )
+            (v18  v19  v28  v27 )
+            (v22  v23  v31  v30 )
+            
+            (v27  v28  v33  v32 )
+            (v28  v29  v34  v33 )
+            (v29  v30  v35  v34 )
+            (v30  v31  v36  v35 )
+            
+            (v11  v12  v16  v15 )
+            (v12  v13  v17  v16 )
+            (v13  v22  v21  v17 )
+            (v22  v30  v26  v21 )
+            (v30  v29  v25  v26 )
+            (v29  v28  v24  v25 )
+            (v28  v19  v20  v24 )
+            (v19  v11  v15  v20 )
+        );
+    }
+    top
+    {
+        type patch;
+        faces
+        (
+            (v111 v112 v117 v116)
+            (v112 v113 v118 v117)
+            (v113 v114 v119 v118)
+            (v114 v115 v120 v119)
+            
+            (v116 v117 v122 v121)
+            (v117 v118 v123 v122)
+            (v118 v119 v124 v123)
+            (v119 v120 v125 v124)
+            
+            (v121 v122 v130 v129)
+            (v124 v125 v134 v133)
+            (v129 v130 v139 v138)
+            (v133 v134 v142 v141)
+            
+            (v138 v139 v144 v143)
+            (v139 v140 v145 v144)
+            (v140 v141 v146 v145)
+            (v141 v142 v147 v146)
+            
+            (v122 v123 v127 v126)
+            (v123 v124 v128 v127)
+            (v124 v133 v132 v128)
+            (v133 v141 v137 v132)
+            (v141 v140 v136 v137)
+            (v140 v139 v135 v136)
+            (v139 v130 v131 v135)
+            (v130 v122 v126 v131)
+        );
+    }
+    
+      sides
+    {
+        type wall;
+        faces
+        (
+            (v0   v37  v42  v5  )
+            (v5   v42  v47  v10 )
+            (v10  v47  v55  v18 )
+            (v18  v55  v64  v27 )
+            (v27  v64  v69  v32 )
+            
+            (v37  v74  v79  v42 )
+            (v42  v79  v84  v47 )
+            (v47  v84  v92  v55 )
+            (v55  v92  v101 v64 )
+            (v64  v101 v106 v69 )
+            
+            (v74  v111 v116 v79 )
+            (v79  v116 v121 v84 )
+            (v84  v121 v129 v92 )
+            (v92  v129 v138 v101)
+            (v101 v138 v143 v106)
+            
+            
+            (v4   v41  v46  v9  )
+            (v9   v46  v51  v14 )
+            (v14  v51  v60  v23 )
+            (v23  v60  v68  v31 )
+            (v31  v68  v73  v36 )
+            
+            (v41  v78  v83  v46 )
+            (v46  v83  v88  v51 )
+            (v51  v88  v97  v60 )
+            (v60  v97  v105 v68 )
+            (v68  v105 v110 v73 )
+            
+            (v78  v115 v120 v83 )
+            (v83  v120 v125 v88 )
+            (v88  v125 v134 v97 )
+            (v97  v134 v142 v105)
+            (v105 v142 v147 v110)
+        );
+    }
+    
+   GOWT
+    {
+        type wall;
+        faces 
+        (
+            (v15  v16  v53  v52 )
+            (v16  v17  v54  v53 )
+            (v17  v21  v58  v54 )
+            (v21  v26  v63  v58 )
+            (v26  v25  v62  v63 )
+            (v25  v24  v61  v62 )
+            (v24  v20  v57  v61 )
+            (v20  v15  v52  v57 )
+            
+            (v52  v53  v90  v89 )
+            (v53  v54  v91  v90 )
+            (v54  v58  v95  v91 )
+            (v58  v63  v100 v95 )
+            (v63  v62  v99  v100)
+            (v62  v61  v98  v99 )
+            (v61  v57  v94  v98 )
+            (v57  v52  v89  v94 )
+            
+            (v89  v90  v127 v126)
+            (v90  v91  v128 v127)
+            (v91  v95  v132 v128)
+            (v95  v100 v137 v132)
+            (v100 v99  v136 v137)
+            (v99  v98  v135 v136)
+            (v98  v94  v131 v135)
+            (v94  v89  v126 v131)
+        );
+    }
+    
+    
+    
+);
+
+mergePatchPairs
+(
+);
+
+// ************************************************************************* //

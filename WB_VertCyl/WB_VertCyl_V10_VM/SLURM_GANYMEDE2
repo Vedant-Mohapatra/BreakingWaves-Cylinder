@@ -1,0 +1,26 @@
+#!/bin/bash
+##ENVIRONMENT SETTINGS; CHANGE WITH CAUTION
+#SBATCH --partition=cpu-preempt            # OR normal with time 2-00:00:00
+##NECESSARY JOB SPECIFICATIONS
+#SBATCH --job-name=WB_VertCyl_V10_VM                 # Set the job name to "JobExample4"
+#SBATCH --time=2-00:00:00                  # Set wall clock limit to D-hh:mm:ss
+#SBATCH --mem=256G                         # Request 256G per node
+#SBATCH --nodes=1                          # Request 1 node
+#SBATCH --ntasks-per-node=128              # Request 128 tasks/cores per node
+#SBATCH --output=WB_VertCyl_V10_VM.%j                # Set output and error file 
+##OPTIONAL JOB SPECIFICATIONS
+##CHANGE ACCOUNT NUMBER AND EMAIL ADDRESS BEFORE USING
+#SBATCH --mail-type=ALL                    # Send email on all job events
+#SBATCH --mail-user=vedant.mohapatra@gmail.com # Send all emails to email_address
+
+# load required module(s)
+module purge
+module load gnu12/12.3.0
+singularity shell --bind /home,/scratch /opt/ohpc/pub/apps/openfoam/2312/Openfoam1.sif
+source /setup_swak4foam_run.sh
+module list
+cd /home/vxm210031/scratch/WB_VertCyl_V10_VM
+# run your program
+date
+mpirun -np 128 interFoam -parallel | tee log.interFoam
+date
