@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import re
+from scipy.interpolate import interp1d
 
 times = []
 fx_total = []
@@ -30,28 +30,32 @@ with open("C:/Users/Vedant/Documents/BreakingWaves-Cylinder/postProcessing/force
 # Optional: preview result
 print("Sample times:", times[:5])
 print("Sample total fx values:", fx_total[:5])
+print(len(times))
+print(len(fx_total))
 
-
+def graph(x_axis, y_axis):
 # make data
-x = times
-y = fx_total
-print(fx_total[-1])
+    x = x_axis
+    y = y_axis
 
-# plot
-fig, ax = plt.subplots()
+    # plot
+    fig, ax = plt.subplots()
 
-ax.plot(x, y, linewidth=1.3)
+    ax.plot(x, y, linewidth=1.3)
 
-ax.set(xlim=(0, 60), xticks=np.arange(0, 60, 10),
-       ylim=(-1000, 2000), yticks=np.arange(-1000, 2000, 500))
+    ax.set(xlim=(0, 60), xticks=np.arange(0, 60, 10),
+        ylim=(-1000, 2000), yticks=np.arange(-1000, 2000, 500))
 
-plt.show()
+    plt.show()
 
 min = []
 min_indice = []
 window = 20
 
 def minIdentify(input_list):
+    graph(times, input_list)
+    # print("Length of timlen(times))
+    print("Length of original list:", len(input_list))
     input_list = np.array(input_list)
     print(type(input_list))
     for i in range(window, len(input_list) - window):
@@ -62,7 +66,61 @@ def minIdentify(input_list):
         # Check if the current point is smaller than all its neighbors
         if input_list[i] < np.min(left_neighbors) and input_list[i] < np.min(right_neighbors):
             min_indice.append(i)
-            min.append(input_list[i])        
-        
+            min.append(input_list[i])
+    print(min)
+    print(min_indice)
+    cleaner(input_list)
+
+threshold = 7
+
+def cleaner(input_list):
+    last_index = min_indice[-1]
+    for i in range(len(min_indice)):
+        if abs(input_list[min_indice[i]] - input_list[last_index]) > threshold:
+            start_garbage = min_indice[i]
+            clean_index = i
+    # min_indice = min_indice[clean_index:-1]
+
+    #count how many periods
+
+
+    # split = np.split(input_list, [start_garbage, last_index])
+    # input_list = split[1]
+    # fx_total = split[1]
+    clean = input_list[start_garbage:last_index+1]
+    # return clean
+
+    times2 = times[start_garbage:last_index+1]
+    # del times[0:start_garbage+1]
+    # del times[last_index:len(input_list)]
+    
+    print(len(times2))
+    print(len(clean))
+    
+    graph(times2, clean)
+    # avgProfile(input_list)
+
+# def avgProfile(input_list):
+#     timeX1 = times[min_indice[0]:min_indice[1]]
+#     dataX1 = input_list[min_indice[0]:min_indice[1]]
+
+#     timeX2 = times[min_indice[1]:min_indice[2]]
+#     dataX2 = input_list[min_indice[1]:min_indice[2]]
+
+#     common_time = np.sort(np.unique(np.concatenate([timeX1, timeX2])))
+
+#     interp_func1 = interp1d(timeX1, dataX1, kind='linear', fill_value="extrapolate")
+#     interp_func2 = interp1d(timeX2, dataX2, kind='linear', fill_value="extrapolate")
+
+#     data1_common = interp_func1(common_time)
+#     data2_common = interp_func2(common_time)
+
+#     averaged_data = (data1_common + data2_common) / 2
+
+#     graph(common_time, averaged_data)
+
+
 minIdentify(fx_total)
-print(min)
+minIdentify(px_total)
+minIdentify(vx_total)
+
